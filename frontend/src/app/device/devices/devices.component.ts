@@ -16,10 +16,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.css']
+  styleUrls: ['./devices.component.css'],
 })
 export class DevicesComponent implements OnInit {
-
   displayedColumns = ['deviceId', 'location', 'timestamp', 'actions'];
   dataSource!: MatTableDataSource<Device>;
 
@@ -29,13 +28,13 @@ export class DevicesComponent implements OnInit {
   deviceForm!: FormGroup;
   isLoading: boolean = true;
 
-  constructor(private service: DataService,
-              private fb: FormBuilder,
-              public dialog: MatDialog,
-              private storageService: StorageService,
-              private router: Router) {
-
-  }
+  constructor(
+    private service: DataService,
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    private storageService: StorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.deviceForm = this.fb.group({
@@ -48,51 +47,51 @@ export class DevicesComponent implements OnInit {
 
   loadDevices() {
     this.isLoading = true;
-    this.service.getDevices()
-      .subscribe(devices => {
-        this.dataSource = new MatTableDataSource<Device>(devices);
-        this.devices = devices;
-        this.isLoading = false;
-      })
+    this.service.getDevices().subscribe((devices) => {
+      this.dataSource = new MatTableDataSource<Device>(devices);
+      this.devices = devices;
+      this.isLoading = false;
+    });
   }
 
   onSubmit() {
     let deviceId = this.deviceForm.get('deviceId')?.value;
     let location = this.deviceForm.get('location')?.value;
-    this.service.addDevice(deviceId, location).subscribe(
-      res => {
-        this.loadDevices();
-      }
-    )
+    this.service.addDevice(deviceId, location).subscribe((res) => {
+      this.loadDevices();
+    });
   }
 
   removeDevice(id: string) {
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      position: { top: '30px' },
+      data: {
+        id: id,
+        type: 'device',
+      },
+    });
 
-    const dialogRef = this.dialog.open(WarningDialogComponent,
-      {
-        position: {top: '30px'},
-        data: {
-          id: id,
-          type: 'device'
-        }
-      })
-
-    dialogRef.afterClosed().subscribe(res => {
-      if(res) {
-        this.service.deleteDevice(id)
-          .subscribe(res => {
-            this.loadDevices();
-          });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.service.deleteDevice(id).subscribe((res) => {
+          this.loadDevices();
+        });
       }
     });
   }
 
   isUniqueId() {
-    return this.devices.filter(device => {return device.deviceId.toLowerCase() == this.deviceForm.get('deviceId')?.value.toLowerCase()}).length == 0
+    return (
+      this.devices.filter((device) => {
+        return (
+          device.deviceId.toLowerCase() ==
+          this.deviceForm.get('deviceId')?.value.toLowerCase()
+        );
+      }).length == 0
+    );
   }
 
   showForm() {
     this.formVisible = !this.formVisible;
   }
-
 }

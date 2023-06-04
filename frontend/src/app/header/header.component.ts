@@ -6,18 +6,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private storageService: StorageService,
-              private authenticationService: AuthenticationService,
-              private router: Router){
-
-  }
+  constructor(
+    private storageService: StorageService,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-      this.isLoggedIn();
+    this.isLoggedIn();
   }
 
   public isLoggedIn() {
@@ -26,11 +25,10 @@ export class HeaderComponent implements OnInit {
 
   public logout() {
     this.storageService.logoutUser();
-    window.location.reload()
+    window.location.reload();
   }
 
   returnToHome() {
-    this.router.navigate(['/home'])
+    this.router.navigate(['/home']);
   }
-
 }

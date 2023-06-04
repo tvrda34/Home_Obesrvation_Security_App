@@ -22,17 +22,21 @@ export class RegisterComponent implements OnInit {
   errorMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private authenticationService: AuthenticationService,
-              private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
       username: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.compose(
-        [Validators.minLength(6), Validators.required])),
-      confirmPassword: new FormControl('', Validators.required)
+      password: new FormControl(
+        '',
+        Validators.compose([Validators.minLength(6), Validators.required])
+      ),
+      confirmPassword: new FormControl('', Validators.required),
     });
   }
 
@@ -45,20 +49,20 @@ export class RegisterComponent implements OnInit {
 
     this.registrationSubmitted = true;
 
-    this.authenticationService.registerUser(username, email, password, confirmPassword)
+    this.authenticationService
+      .registerUser(username, email, password, confirmPassword)
       .subscribe({
-        next: response => {
+        next: (response) => {
           this.isLoading = false;
           this.registrationSuccessful = true;
           this.router.navigate(['/home']);
         },
-        error: error => {
+        error: (error) => {
           this.isLoading = false;
           this.registrationFailed = true;
           this.errorMessage = error.error.message;
-
-        }
-      })
+        },
+      });
   }
 
   public loginInstead() {

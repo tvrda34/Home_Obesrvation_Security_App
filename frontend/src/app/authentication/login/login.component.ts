@@ -24,10 +24,12 @@ export class LoginComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private authenticationService: AuthenticationService,
-              private storageService: StorageService,
-              private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private storageService: StorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -43,20 +45,19 @@ export class LoginComponent implements OnInit {
 
     this.loginSubmitted = true;
 
-    this.authenticationService.loginUser(username, password)
-      .subscribe({
-        next: response => {
-          this.storageService.saveUser(response);
-          this.isLoading = false;
-          this.loginSuccessful = true;
-          this.router.navigate(['/home'])
-        },
-        error: error => {
-          this.isLoading = false;
-          this.loginFailed = true;
-          this.errorMessage = error.error.message;
-        }
-      })
+    this.authenticationService.loginUser(username, password).subscribe({
+      next: (response) => {
+        this.storageService.saveUser(response);
+        this.isLoading = false;
+        this.loginSuccessful = true;
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.loginFailed = true;
+        this.errorMessage = error.error.message;
+      },
+    });
   }
 
   public registerInstead() {

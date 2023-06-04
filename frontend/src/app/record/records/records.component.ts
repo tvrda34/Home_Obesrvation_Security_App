@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { testImagePath } from 'src/app/constants/constants';
 import { DataService } from 'src/app/data.service';
 import { Record } from 'src/app/models/record.model';
 import {
@@ -22,8 +21,6 @@ export class RecordsComponent implements OnInit {
 
   devices!: any[];
   currentDevice: any = null;
-
-  imgPath = testImagePath;
 
   isLoading = true;
 

@@ -40,7 +40,8 @@
 
     <div class="w-100 mx-auto">
       <mat-table [dataSource]="dataSource"
-                 class="mat-elevation-z2 w-100" *ngIf="devices.length > 0; else noData">
+                 class="mat-elevation-z2 w-100"
+                 *ngIf="devices.length > 0; else noData">
         <ng-container matColumnDef="deviceId">
           <mat-header-cell *matHeaderCellDef>
             ID UREĐAJA

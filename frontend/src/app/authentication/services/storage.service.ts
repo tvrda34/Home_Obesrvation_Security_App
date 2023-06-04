@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 const USER_KEY = 'auth-user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
   constructor() {}
@@ -18,13 +18,16 @@ export class StorageService {
     const helper = new JwtHelperService();
 
     let user: Object = {
-      accessToken: userResponse.accessToken
-    }
+      accessToken: userResponse.accessToken,
+    };
 
-    const expirationDate = helper.getTokenExpirationDate(userResponse.accessToken);
+    const expirationDate = helper.getTokenExpirationDate(
+      userResponse.accessToken
+    );
 
-
-    let timeout = helper.getTokenExpirationDate(userResponse.accessToken)!.valueOf() - new Date().valueOf();
+    let timeout =
+      helper.getTokenExpirationDate(userResponse.accessToken)!.valueOf() -
+      new Date().valueOf();
 
     this.expirationCounter(timeout);
 
@@ -38,17 +41,18 @@ export class StorageService {
 
     const expirationDate = helper.getTokenExpirationDate(user.accessToken);
 
-
-    let timeout = helper.getTokenExpirationDate(user.accessToken)!.valueOf() - new Date().valueOf();
+    let timeout =
+      helper.getTokenExpirationDate(user.accessToken)!.valueOf() -
+      new Date().valueOf();
 
     this.expirationCounter(timeout);
   }
 
   expirationCounter(timeout: any) {
     setTimeout(() => {
-      this.logoutUser()
-      window.location.reload()
-    }, timeout)
+      this.logoutUser();
+      window.location.reload();
+    }, timeout);
   }
 
   public saveToken(token: string) {
