@@ -1,5 +1,6 @@
 <div class="mt-5 px-md-5 w-100">
   <div class="mx-auto" *ngIf="!isLoading; else loading">
+    <h2 class="text-center mb-5">Arhiva zapisa</h2>
     <form [formGroup]="deviceForm"
           (ngSubmit)="getRecordsForDevice()">
       <h5 class="ms-4 mb-3 fw-light">Filtriraj zapise po uređaju:</h5>

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
@@ -36,7 +35,6 @@ initializeApp(environment.FirebaseConfig)
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent,
     RegisterComponent,
     LoginComponent,
     HomeComponent,

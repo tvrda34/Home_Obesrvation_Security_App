@@ -55,6 +55,7 @@ export class AppComponent implements OnInit {
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
       this.message=payload;
+      window.location.reload();
     });
   }
 }

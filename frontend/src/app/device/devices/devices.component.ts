@@ -67,7 +67,7 @@ export class DevicesComponent implements OnInit {
   }
 
   removeDevice(id: string) {
-        
+
     const dialogRef = this.dialog.open(WarningDialogComponent,
       {
         position: {top: '30px'},
